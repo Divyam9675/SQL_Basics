@@ -1,0 +1,222 @@
+mysql> use Divyam
+Database changed
+mysql> CREATE TABLE student (
+    ->   student_id INT PRIMARY KEY,
+    ->   name VARCHAR(40),
+    ->   major VARCHAR(40)
+    ->   -- PRIMARY KEY(student_id)
+    -> );
+Query OK, 0 rows affected (3.37 sec)
+
+mysql>
+mysql> DESCRIBE student;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| student_id | int         | NO   | PRI | NULL    |       |
+| name       | varchar(40) | YES  |     | NULL    |       |
+| major      | varchar(40) | YES  |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+3 rows in set (0.09 sec)
+
+mysql> ALTER TABLE student ADD gpa DECIMAL;
+Query OK, 0 rows affected (0.79 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> Describe student;
++------------+---------------+------+-----+---------+-------+
+| Field      | Type          | Null | Key | Default | Extra |
++------------+---------------+------+-----+---------+-------+
+| student_id | int           | NO   | PRI | NULL    |       |
+| name       | varchar(40)   | YES  |     | NULL    |       |
+| major      | varchar(40)   | YES  |     | NULL    |       |
+| gpa        | decimal(10,0) | YES  |     | NULL    |       |
++------------+---------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> ALTER TABLE student Delete gpa;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'Delete gpa' at line 1
+mysql> ALTER TABLE student Drop gpa;
+Query OK, 0 rows affected (1.42 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> Describe student;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| student_id | int         | NO   | PRI | NULL    |       |
+| name       | varchar(40) | YES  |     | NULL    |       |
+| major      | varchar(40) | YES  |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+3 rows in set (0.08 sec)
+
+mysql> INSERT INTO student VALUES(1, 'Divyam', 'Maths');
+Query OK, 1 row affected (0.10 sec)
+
+mysql> INSERT INTO student VALUES(2, 'Abhimanyu', 'Science');
+Query OK, 1 row affected (0.19 sec)
+
+mysql> INSERT INTO student VALUES(3, 'Chaitanya', 'Commerce');
+Query OK, 1 row affected (0.06 sec)
+
+mysql> INSERT INTO student VALUES(4, 'Vinit', 'Hindi');
+Query OK, 1 row affected (0.13 sec)
+
+mysql> INSERT INTO student VALUES(5, 'Raghu', 'English');
+Query OK, 1 row affected (0.07 sec)
+
+mysql> select *from student
+    -> select *from student;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'select *from student' at line 2
+mysql> select *from student;
++------------+-----------+----------+
+| student_id | name      | major    |
++------------+-----------+----------+
+|          1 | Divyam    | Maths    |
+|          2 | Abhimanyu | Science  |
+|          3 | Chaitanya | Commerce |
+|          4 | Vinit     | Hindi    |
+|          5 | Raghu     | English  |
++------------+-----------+----------+
+5 rows in set (0.04 sec)
+
+mysql> update student where major = 'PCM';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'where major = 'PCM'' at line 1
+mysql> update student set major = 'PCM';
+Query OK, 5 rows affected (0.06 sec)
+Rows matched: 5  Changed: 5  Warnings: 0
+
+mysql> select *from student;
++------------+-----------+-------+
+| student_id | name      | major |
++------------+-----------+-------+
+|          1 | Divyam    | PCM   |
+|          2 | Abhimanyu | PCM   |
+|          3 | Chaitanya | PCM   |
+|          4 | Vinit     | PCM   |
+|          5 | Raghu     | PCM   |
++------------+-----------+-------+
+5 rows in set (0.00 sec)
+
+mysql> Delete from student where student_id = 5;
+Query OK, 1 row affected (0.18 sec)
+
+mysql> select *from student;
++------------+-----------+-------+
+| student_id | name      | major |
++------------+-----------+-------+
+|          1 | Divyam    | PCM   |
+|          2 | Abhimanyu | PCM   |
+|          3 | Chaitanya | PCM   |
+|          4 | Vinit     | PCM   |
++------------+-----------+-------+
+4 rows in set (0.00 sec)
+
+mysql> update student set major = 'PCB' where name ='Vinit'
+    -> update student set major = 'PCB' where name ='Vinit';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'update student set major = 'PCB' where name ='Vinit'' at line 2
+mysql> update student set major = 'PCB' where name ='Vinit';
+Query OK, 1 row affected (0.07 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select *from student;
++------------+-----------+-------+
+| student_id | name      | major |
++------------+-----------+-------+
+|          1 | Divyam    | PCM   |
+|          2 | Abhimanyu | PCM   |
+|          3 | Chaitanya | PCM   |
+|          4 | Vinit     | PCB   |
++------------+-----------+-------+
+4 rows in set (0.02 sec)
+
+mysql> select *from student where student_id >2;
++------------+-----------+-------+
+| student_id | name      | major |
++------------+-----------+-------+
+|          3 | Chaitanya | PCM   |
+|          4 | Vinit     | PCB   |
++------------+-----------+-------+
+2 rows in set (0.00 sec)
+
+mysql> select *from student where major <> 'PCB';
++------------+-----------+-------+
+| student_id | name      | major |
++------------+-----------+-------+
+|          1 | Divyam    | PCM   |
+|          2 | Abhimanyu | PCM   |
+|          3 | Chaitanya | PCM   |
++------------+-----------+-------+
+3 rows in set (0.00 sec)
+
+mysql>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
